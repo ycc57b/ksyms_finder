@@ -6,7 +6,7 @@ Only support 64bit kernel.
 
 ### Usage
 
-ksyms_finder kernle_file
+find_syms.py kernle_file
 
 ### TODO
 
