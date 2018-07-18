@@ -13,8 +13,15 @@ class SymsFinder:
         if is_64:
             self._align = 8
         else:
-            self_align = 4
+            self._align = 4
         self._kallsyms = []
+
+        self._kallsyms_addresses = 0
+        self._kallsyms_num_syms = 0
+        self._kallsyms_token_index = 0
+        self._kallsym_token_tables = 0
+        self._kallsyms_names = 0
+
     def _read_image(self):
         with open(self._image_path, 'rb') as fp:
             self._image_content = bytearray(fp.read())
@@ -86,7 +93,7 @@ class SymsFinder:
                 while True:
                     name = struct.unpack_from("B", self._image_content, self._kallsym_token_tables+token_index + k)[0]
                     if name == 0:
-                        break;
+                        break
                     if not s_type:
                         s_type = chr(name)
                     else:
@@ -106,7 +113,7 @@ class SymsFinder:
 
         if self._kallsyms_addresses == 0:
             print('[-] kallsyms_addresses is null')
-            return;
+            return
         if self._kallsyms_num_syms == 0:
             print('[-] kallsyms_num_syms is null')
             return
